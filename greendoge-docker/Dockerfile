@@ -12,11 +12,13 @@ ENV farmer_port="null"
 ENV testnet="false"
 ENV full_node_port="null"
 ENV TZ="UTC"
+ENV crypto="gdog"
 ARG BRANCH
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y curl jq python3 ansible tar bash ca-certificates git openssl unzip wget python3-pip sudo acl build-essential python3-dev python3.8-venv python3.8-distutils apt nfs-common python-is-python3 vim tzdata
 
-RUN DEBIAN_FRONTEND=noninteractive curl -sLO https://github.com/gilnobrega/farmr/releases/download/v1.7.7.4/farmr-ubuntu-x86_64.deb && sudo dpkg -i farmr-ubuntu-x86_64.deb
+# Farmr
+RUN wget https://github.com/gilnobrega/farmr/releases/download/v1.7.7.4/farmr-linux-x86_64.tar.gz && mkdir /farmr && tar xf farmr-linux-x86_64.tar.gz -C /farmr/ && rm farmr-linux-x86_64.tar.gz
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata

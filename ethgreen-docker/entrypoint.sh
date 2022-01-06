@@ -48,11 +48,13 @@ elif [[ ${harvester} == 'true' ]]; then
 else
   ethgreen start farmer
 fi
-
 #farmr
 if [ -f "/farmr/blockchain/xch.json" ] ; then
 	rm /farmr/blockchain/xch.json
 fi 
+
+if [ ! -f "/farmr/blockchain/${crypto}.json" ] ; then
 wget https://raw.githubusercontent.com/arturasaleknavicius/chia-forks-docker/master/farmr_json/${crypto}.json -P /farmr/blockchain
+fi
 
 while true; do sleep 30; done;
